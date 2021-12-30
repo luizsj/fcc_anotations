@@ -1,0 +1,15 @@
+Arrays
+    myArray.push(value)
+            adiciona o value no final do Array
+    myVar = myArray.pop() 
+            remove o último índice de myArray e atribui para myVar
+    myVar = myArray.shift()
+            remove o índice 0 de myArray e atribui para myVar
+            o valor  que estava no índice 1 passa para zero
+    myArray.unshift(value)        
+            adiciona value na posição 0 de myArray
+            os índices já existem movem 1 posição para a direita
+
+Objects
+    obj.hasOwnProperty("name") = true/false, checar se a propriedade existe no objeto
+    

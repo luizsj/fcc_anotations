@@ -12,4 +12,20 @@ Arrays
 
 Objects
     obj.hasOwnProperty("name") = true/false, checar se a propriedade existe no objeto
-    
+
+CountDown
+function countdown(n){
+  if (n <= 0) {
+    return [];
+  } else {
+    const countArray = countdown(n-1);
+    countArray.unshift(n);
+    return countArray;
+  }
+  
+}
+// Only change code above this line
+let s = countdown(15);
+console.log(s);
+[ 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+

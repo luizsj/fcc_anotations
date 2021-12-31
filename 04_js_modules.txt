@@ -1,0 +1,21 @@
+quando está usando JS em uma página HTML
+pode REFERENCIAR vários com 
+    <script type="javascript" src="file_in_server.js"></script>
+
+quando está construindo uma aplicação JS no servidor
+como no caso de NodeJS
+a referência é feita por export/import
+
+No arquivo que tem funções e/ou variáveis a exportar
+usa
+    export const var_name = "content";
+    export function fn_name() {
+            }
+
+Aí no arquivo onde vai usar isso
+usa
+    import { var_name, fn_name }  from './source.js';
+        e usa como var_name e fn_name mesmo
+    ou
+    import * as module_name from './source.js';
+        e usa como module_name.var_name ou module_name.fn_name();

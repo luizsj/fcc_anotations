@@ -1,0 +1,56 @@
+const myPromise = new Promise((resolve, reject) => {
+    //do something (or nothing)
+  if(condition here) {
+    resolve("Promise was fulfilled");
+  } else {
+    reject("Promise was rejected");
+  }
+});
+
+A promise has three states: pending, fulfilled, and rejected.
+
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer represents a response from a server
+  let responseFromServer;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+Promises are most useful when you have a process that takes an unknown amount of time in your code
+     (i.e. something asynchronous), often a server request. 
+     When you make a server request it takes some amount of time, 
+        and after it completes you usually want to do something with the response from the server. 
+        This can be achieved by using the then method. 
+        The then method is executed immediately after your promise is fulfilled with resolve. 
+        Here’s an example:
+
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to true to represent a successful response from a server
+  let responseFromServer = true;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+makeServerRequest.then(result => {
+  console.log(result);
+})
+makeServerRequest.catch(error => {
+  console.log(error);
+})
+    o result no then é a resposta da função passada no resolve
+        no caso , resolve devolve uma string que é armazenada em result
+    o error no catch é a resposta da função passada no reject
+        no caso, reject devolve uma string que é armazenada no error
+
+    Resolve e Reject podem devolver qualquer coisa,
+        é comum devolverem objetos, por exemplo
+        
+

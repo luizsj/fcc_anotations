@@ -1,0 +1,64 @@
+SHORTHAND
+    declaração de função que devolve um objeto
+
+            const createPerson = (name, age, gender) => {
+                return {
+                    name: name,
+                    age: age,
+                    gender: gender
+                };
+            };
+    É IGUAL A
+            const createPerson = (name, age, gender) => {
+                return ({name, age, gender});
+            };     
+    E É IGUAL A
+            const createPerson = (name, age, gender) => ({name, age, gender});
+            };    
+
+------------
+FUNCTION AS A PROPERTY
+
+        const bicycle = {
+            gear: 2,
+            setGear(newGear) {
+                    this.gear = newGear;
+            }
+        };
+
+        bicycle.setGear(3);
+        console.log(bicycle.gear);
+
+--------
+CREATE OBJECTS using class syntax instead functions
+        var SpaceShuttle = function(targetPlanet){
+            this.targetPlanet = targetPlanet;
+        }
+        var zeus = new SpaceShuttle('Jupiter');
+
+        class SpaceShuttle {
+            constructor(targetPlanet) {
+                this.targetPlanet = targetPlanet;
+            }
+        }
+        const zeus = new SpaceShuttle('Jupiter');
+
+        class Thermostat {
+            constructor(farenheit) {
+                this._farenheit = farenheit;
+            }
+            get temperature(){
+                return 5/9 * (this._farenheit-32);
+            }
+            set temperature(celsius){
+                this._farenheit = celsius * 9 /5 +32;
+            }
+        }
+
+        const thermos = new Thermostat(76); // Setting in Fahrenheit scale
+        let temp = thermos.temperature; // 24.44 in Celsius
+        console.log(temp)
+        thermos.temperature = 26;
+        temp = thermos.temperature; // 26 in Celsius
+        console.log(temp);
+

@@ -1,0 +1,220 @@
+Regular expressions are used in programming languages to match parts of strings. 
+You create patterns to help you do that matching.
+
+        let myString = "Hello, World!";
+        let myRegex = /Hello/;
+        let result = myRegex.test(myString);
+exemplo acima retorna true, e a busca é exata e case sensitive
+uso : var_regex.test(alvo)
+
+        let petString = "James has a pet cat.";
+        let petRegex = /dog|cat|bird|fish/; // Change this line
+        let result = petRegex.test(petString);
+usar | como or para procurar qualquer dos itens
+        test retorna true se o alvo tiver qualquer dos itens, case-sensitive
+        isso pode usar para testar respostas em uma string
+
+        para tornar case-insensitive,
+        acrescenta um i  após a última barra
+
+------------
+Match
+uso var_alvo.match(var_regex)
+    retorna um array com a primeira ocorrência de regex no alvo
+        ou retorna null se não for encontrada
+        se for encontrada mais de uma vez só retorna a primeira
+
+        "Hello, World!".match(/Hello/);
+        let ourStr = "Regular expressions";
+        let ourRegex = /expressions/;
+        ourStr.match(ourRegex);
+
+        let extractStr = "Extract the word 'coding' from this string of coding.";
+        let codingRegex = /coding/; // Change this line
+        let result = extractStr.match(codingRegex); // Change this line
+        console.log(result);
+
+        [ 'coding',
+            index: 18,
+            input: 'Extract the word \'coding\' from this string of coding.',
+            groups: undefined ]
+
+para retorna array com todas as ocorrências, usa /ig 
+            let twinkleStar = "Twinkle, twinkle, little star";
+            let starRegex = /twinkle/ig; // Change this line
+            let result = twinkleStar.match(starRegex); // Change this line
+            console.log(result)    ;
+        retorna
+            [ 'Twinkle', 'twinkle' ]
+
+--------
+Wildcard .
+        let exampleStr = "Let's have fun with regular expressions!";
+        let unRegex = /.un/; // Change this line
+        let result = unRegex.test(exampleStr);
+        console.log(result);
+            testa qualquer caracter seguido de 'un'
+
+------------
+character classes
+        let bgRegex = /b[aiu]g/;
+    define bag, big and bug.
+
+        let quoteSample = "Beware of bugs in the above code; I have only proved it correct, not tried it.";
+        let vowelRegex = /[aeiou]/ig; // Change this line
+        let result = quoteSample.match(vowelRegex); // Change this line
+        console.log(result);      
+    retorna um array com todas as vogais, case-insensitive, na string inicial
+
+character ranges
+        let quoteSample = "The quick brown fox jumps over the lazy dog.";
+        let alphabetRegex = /[a-z]/ig; // Change this line
+        let result = quoteSample.match(alphabetRegex); // Change this line
+        console.log(result);
+    localizar as ocorrencias da faixa de caracteres
+
+        let quoteSample = "Blueberry 3.141592653s are delicious.";
+        let myRegex = /[a-z0-9]/ig; // Change this line
+        let result = quoteSample.match(myRegex); // Change this line
+        console.log(result);
+    Localizar letras e números na faixa definida
+
+-------------
+negated characters
+    usar ^ antes do grupo de caracteres [^qqrcoisa]
+    se usar sem os brackets, vai procurar a primeira ocorrência 
+                            e não vai achar as seguintes
+        let quoteSample = "3 blind mice.";
+        let myRegex = /[^aeiou0-9]/ig; // Change this line
+        let result = quoteSample.match(myRegex); // Change this line
+        console.log(result);    
+    retorna tudo que não é vogal e não é numero
+------
+
+Repeated characters +
+    usar + após o character
+        let difficultSpelling = "Mississippi";
+        let myRegex = /s+/g; // Change this line
+        let result = difficultSpelling.match(myRegex);
+        console.log(result)
+    retorna [ 'ss', 'ss' ]
+
+        let difficultSpelling = "Misssssisssipspi";
+        let myRegex = /s+/g; // Change this line
+        let result = difficultSpelling.match(myRegex);
+        console.log(result)
+    retorna [ 'sssss', 'sss', 's' ]
+
+--------------
+Repeat zero or more  *
+        let soccerWord = "gooooooooal!";        //g seguido de vários O
+        let gPhrase = "gut feeling";            //g aparece sem O
+        let oPhrase = "over the moon";          //aparece O inclusive repetido, mas sem g
+        let goRegex = /go*/;
+        soccerWord.match(goRegex);
+        gPhrase.match(goRegex);
+        oPhrase.match(goRegex);    
+    In order, the three match calls would return the values ["goooooooo"], ["g"], and null.
+
+-----------
+Greedy vs Lazy
+    Matches de regex pegam a maior sequencia encontrada por padrão
+        em "titanic" 
+        a expressão /t[a-z]*i/
+            começa com t, termina com i 
+            e tem qualquer conjunto de letras no meio
+        retorna "titani"
+    Para buscar a menor ocorrência, usa ? 
+        assim: /t[a-z]*?i/
+        retorna "ti"
+
+        let text = "<h1>Winter is coming</h1>";
+        let myRegex = /<.*?>/; // Change this line
+        let result = text.match(myRegex);
+        console.log(result);
+    retorna "<h1>"
+        se não tiver o ?, retorna a string inteira
+
+------
+Match Beginning
+    usa ^ sem [ ]
+        let firstString = "Ricky is first and can be found.";
+        let firstRegex = /^Ricky/;
+        firstRegex.test(firstString);
+        let notFirst = "You can't find Ricky now.";
+        firstRegex.test(notFirst);
+    O primeiro test retorna true e o segundo retorna false
+
+-------
+Match Ending
+    usa $ no final da sequencia
+        let theEnding = "This is a never ending story";
+        let storyRegex = /story$/;
+        storyRegex.test(theEnding);
+        let noEnding = "Sometimes a story will have to end";
+        storyRegex.test(noEnding);    
+-------
+All Letters and Numbers (and underscore)
+    usa \w
+        let longHand = /[A-Za-z0-9_]+/;
+        let shortHand = /\w+/;
+
+    desnecessário usar i no final, porque a expressão já inclui maiúsculas
+        let quoteSample = "The five boxing wizards jump quickly.";
+        let alphabetRegexV2 = /\w/g; // Change this line
+        let result = quoteSample.match(alphabetRegexV2).length;
+        console.log(result); //retorna 31  (caracteres sem espaços)
+
+        let wordsRegex = /\w+/g;
+        let result = quoteSample.match(wordsRegex).length;
+        console.log(result); //retorna 6 (palavras)
+
+----------
+All except Letters and Numbers
+    usa \W
+        let quoteSample = "The five boxing wizards jump quickly.";
+        let nonAlphabetRegex = /\W/g; // Change this line
+        let result = quoteSample.match(nonAlphabetRegex).length;
+        console.log(result); //retorna 6
+                            //5 espaços + .
+
+
+----
+All Numbers
+    usa \d
+        let movieName = "2001: A Space Odyssey";
+        let numRegex = /\d/g; // Change this line
+        let result = movieName.match(numRegex).length;
+        console.log(result);
+
+---------
+All except Numbers
+    usa \D
+        let movieName = "2001: A Space Odyssey";
+        let noNumRegex = /\D/g; // Change this line
+        let result = movieName.match(noNumRegex).length;
+        console.log(result); 
+
+----------------
+Example - Checking usernames
+    rules
+        Usernames can only use alpha-numeric characters.
+        The only numbers in the username have to be at the end. 
+            There can be zero or more of them at the end. 
+            Username cannot start with the number.
+        Username letters can be lowercase and uppercase.
+        Usernames have to be at least two characters long. 
+        A two-character username can only use alphabet letters as characters.
+        
+                       
+
+
+padrão   /regex/
+case-insensitive    /regex/i
+várias ocorrencias  /regex/ig
+wildcard .          /re.ex/
+group chars         /b[aiu]g/;
+range chars         /b[a-n]g/
+
+testar se existe        var_regex.test(var_alvo)
+localizar ocorrencias   var_alvo.match(var_regex)

@@ -1,0 +1,122 @@
+Example - Checking usernames
+    rules
+        Usernames can only use alpha-numeric characters.
+        The only numbers in the username have to be at the end. 
+            There can be zero or more of them at the end. 
+            Username cannot start with the number.
+        Username letters can be lowercase and uppercase.
+        Usernames have to be at least two characters long. 
+        A two-character username can only use alphabet letters as characters.
+        
+
+Your regex should match the string JACK
+Your regex should not match the string J
+Your regex should match the string Jo
+Your regex should match the string Oceans11
+Your regex should match the string RegexGuru
+Your regex should not match the string 007
+Your regex should not match the string 9
+Your regex should not match the string A1
+Your regex should not match the string BadUs3rnam3
+Your regex should match the string Z97
+Your regex should not match the string c57bT3
+Your regex should match the string AB1
+Your regex should not match the string J%4
+
+        let username = "JackOfAllTrades";
+        let userCheck = /^[a-z][a-z]+\d*$|^[a-z]\d\d+$/i; // Change this line
+
+                    Code Explanation
+                    ^ - start of input
+                    [a-z] - first character is a letter
+                    [a-z]+ - following characters are letters
+                    \d*$ - input ends with 0 or more digits
+                    | - or
+                    ^[a-z] - first character is a letter
+                    \d\d+ - following characters are 2 or more digits
+                    $ - end of input
+
+        let result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "JACK";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "J";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+
+        username = "Jo";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "Oceans11";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "RegexGuru";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "007";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+        username = "9";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+        username = "A1";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+        username = "BadUs3rnam3";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+        username = "Z97";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+
+        username = "c57bT3";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }
+
+        username = "AB1";
+        result = userCheck.test(username);
+        if (!result){
+            console.log(username + ':' + result + ' should be true');  //true 
+        }
+
+        username = "J%4";
+        result = userCheck.test(username);
+        if (result){
+            console.log(username + ':' + result + ' should be false');  //true 
+        }

@@ -1,0 +1,102 @@
+myArray.length
+    numero de elementos no primeiro nível (não olha arrays ou objectos internos)
+
+
+        let ourArray = ["a", "b", "c"];
+        let ourVariable = ourArray[0];
+    Now ourVariable has the value of a.
+        ourArray[1] = "not b anymore";
+
+        myArray.push(value)        
+    acrescenta item no final do array como novo elemento
+        myArray.unshift(value)
+    acrescenta item no início (posição zero) do array
+    itens existentes têm suas posições alteradas para a direita
+
+também pode usar
+        myArray.push(value1, value2, ..., valuen) ;
+        myArray.unshift(value1, value2, ..., valuen) ;
+
+-------------
+varName = myArray.pop()
+    remove o último elemento de myArray e devolve para varName
+varName = myArray.shift()
+    remove o primeiro elemento de myArray e devolve para varName
+        também pode usar os dois sem o varName para apenas remover
+
+----------
+Splice(ini, quant)        
+    remove uma quantidade consecutiva de itens
+        let array = ['I', 'am', 'feeling', 'really', 'happy'];
+        let newArray = array.splice(3, 2);
+        //array agora é ['I', 'am', 'feeling']
+        //newArray é ['really', 'happy']
+
+-------
+Splice(ini, quant [, value1, value2, valuen])        ;
+    remove a quantidade de itens a partir de ini
+    e coloca no lugar a lista de valores
+
+            const numbers = [10, 11, 12, 12, 15];
+            const startIndex = 3;
+            const amountToDelete = 1;
+
+            numbers.splice(startIndex, amountToDelete, 13, 14);
+            console.log(numbers);
+        retorna  [ 10, 11, 12, 13, 14, 15 ]
+
+-------
+Slice(idxIni, idxFim)
+    copia parte do array 
+            function forecast(arr) {
+                arr = arr.slice(2, 4);
+                return arr;
+            }
+            console.log(forecast(['cold', 'rainy', 'warm', 'sunny', 'cool', 'thunderstorms']));
+        retorna ['warm', 'sunny']
+            copia do item 2 inclusive e pára antes do item 4
+
+------
+Copy Spread
+        let thisArray = [true, true, undefined, false, null];
+        let thatArray = [...thisArray];
+        os dois array ficam iguais, mesmo conteúdo
+
+        let thisArray = ['sage', 'rosemary', 'parsley', 'thyme'];
+        let thatArray = ['basil', 'cilantro', ...thisArray, 'coriander'];
+
+---------
+myArray.indexOf(element)        
+    retorna o indice em que ocorre o primeiro elemento (pode ter mais de um)
+    retorna -1 se o elemento não existir
+
+            let fruits = ['apples', 'pears', 'oranges', 'peaches', 'pears'];
+            fruits.indexOf('dates');    //retorna -1
+            fruits.indexOf('oranges');  //retorna 2
+            fruits.indexOf('pears');    //retorna 1
+
+------------
+Loop For
+         for (let i = 0; i < arr.length; i++) {
+             //do something
+         }
+
+---------------
+MultiDimensional
+            let nestedArray = [
+                ['deep'],
+                [
+                    ['deeper'], ['deeper'] 
+                ],
+                [
+                    [
+                        ['deepest'], ['deepest']
+                    ],
+                    [
+                        [
+                            ['deepest-est?']
+                        ]
+                    ]
+                ]
+            ];
+        'deepest-est?' == nestedArray[2][1][0][0][0]

@@ -1,0 +1,46 @@
+Objects
+        const tekkenCharacter = {
+            player: 'Hwoarang',
+            fightingStyle: 'Tae Kwon Doe',
+            human: true
+        };
+        tekkenCharacter.origin = 'South Korea';
+        tekkenCharacter['hair color'] = 'dyed orange';
+        const eyes = 'eye color';
+        tekkenCharacter[eyes] = 'brown';
+
+
+        let nestedObject = {
+            id: 28802695164,
+            date: 'December 31, 2016',
+            data: {
+                totalUsers: 99,
+                online: 80,
+                onlineStatus: {
+                    active: 67,
+                    away: 13,
+                    busy: 8
+                }
+            }
+        };
+        nestedObject.data.onlineStatus.busy = 10;
+
+--------
+delete objVar.propName
+        exclui a propriedade do objeto
+
+------
+varBool = objVar.hasOwnProperty('propName')                
+varBool = 'propName' in objVar;
+
+---------
+loop for sobre as chaves
+for (let user in users) {
+  console.log(user);    //cada user aqui é uma chave de users
+                        para acessar o valor ainda precisa usar users[user]
+}
+
+------------
+Object.keys(objVarName)
+    retorna um array com as chaves
+------------

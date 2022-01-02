@@ -196,25 +196,116 @@ All except Numbers
         console.log(result); 
 
 ----------------
-Example - Checking usernames
-    rules
-        Usernames can only use alpha-numeric characters.
-        The only numbers in the username have to be at the end. 
-            There can be zero or more of them at the end. 
-            Username cannot start with the number.
-        Username letters can be lowercase and uppercase.
-        Usernames have to be at least two characters long. 
-        A two-character username can only use alphabet letters as characters.
+Whitespaces (and other characters)
+    \s
+    This pattern not only matches whitespace, 
+        but also carriage return, tab, form feed, and new line characters. 
+        You can think of it as similar to the character class [ \r\t\f\n\v].
+
+        let sample = "Whitespace is important in separating words";
+        let countWhiteSpace = /\s/g; // Change this line
+        let result = sample.match(countWhiteSpace);
+        console.log(result);
+
+    \S = [^ \r\t\f\n\v]
+        let sample = "Whitespace is important in separating words";
+        let countNonWhiteSpace = /\S/g; // Change this line
+        let result = sample.match(countNonWhiteSpace);
+        console.log(result);
+
+--------------
+quantidade
+    {min, max}        
+        let ohStr = "Ohhh no";
+        let ohRegex = /Oh{3,6} no/; // Change this line
+        let result = ohRegex.test(ohStr);
+        console.log(result);
+    Isso procura "Oh no" com no mínimo 3h e no máximo 6h
+
+    para somente mínimo  
+    preenche um e não preenche o outro, colocando a vírgula
+
+        let haStr = "Hazzzzzzzzah";
+        let haRegex = /Haz{4,}ah/; // Change this line
+        let result = haRegex.test(haStr);
+        console.log(result); //true
+        4 ou mais letras z
+
+    para quantidade exata
+    preenche só um número sem vírgula
+        let timStr = "Timmmmber";
+        let timRegex = /Tim{4}ber/; // Change this line
+        let result = timRegex.test(timStr);
+        console.log(result);        
+        match the word Timber only when it has four letter m's.
+
+-------------------
+Character anterior pode existir ou não
+    ?
+        let favWord = "favorite";
+        let favRegex = /favou?rite/; // Change this line
+        let result = favRegex.test(favWord);
+        console.log(result)        //retorna true
+
+-----------------
+Chacter seguinte
+    (?= ... )  e (?! ...)
+        let quit = "qu";
+        let noquit = "qt";
+        let quRegex= /q(?=u)/;    procura por q obrigatoriamente seguido de u
+        let qRegex = /q(?!u)/;    procura por q obrigatoriamente não seugido de u
+
+    A more practical use of lookaheads is to check two or more patterns in one string. 
+    Here is a (naively) simple password checker that looks for between 3 and 6 characters and at least one number:
+
+        let password = "abc123";
+        let checkPass = /(?=\w{3,6})(?=\D*\d)/;
+
+    match passwords that are greater than 5 characters long, and have two consecutive digits.
+        let sampleWord = "astronaut";
+        let pwRegex = /(?=\w{6,})(?=\w*\d{2})/; // Change this line
+        //let pwRegex = /(?=\d{2})/; // Change this line
+        let result = pwRegex.test(sampleWord);
+        console.log(result);
+
+
+------------
+string groups
+        let testStr = "Pumpkin";
+        let testRegex = /P(engu|umpk)in/;
+    checa Penguin e Pumpkin = true
+
+        let myString = "Franklin Roosevelt";
+        let myRegex = /(Eleanor|Franklin).*(?=Roosevelt)/; // Change this line
+        let result = myRegex.test(myString); // Change this line
+        console.log(result);
+    obrigatório ter Eleanor OU Franklin, mais qualquer coisa seguida obrigatorio por Roosevelt
+
+-----------
+posicao + repeticao
+        let repeatNum = "42 42 42";
+        let reRegex = /^(\d+)(\s)\1\2\1$/; // Change this line
+        let result = reRegex.test(repeatNum);
+        repete um conjunto qualquer de digitos seguidos por espaços
+            mais o mesmo numero mais espaço mais o mesmo número
+
+--------------
+usar junto com Replace
+        "Code Camp".replace(/(\w+)\s(\w+)/, '$2 $1');
+    The replace call would return the string Camp Code.
+
+        let str = "one two three";
+        let fixRegex = /(\w+)\s(\w+)\s(\w+)/; // Change this line
+        let replaceText = "$3 $2 $1"; // Change this line
+        let result = str.replace(fixRegex, replaceText);
+        console.log(result);
+        retorna three two one
+
+
+        let hello = "   Hello, World!  ";
+        let wsRegex = /^\s+|\s+$/g; // Change this line
+        let result = hello.replace(wsRegex, ''); // Change this line
+        console.log('|'+result+'|');
+        seleciona espaços no início OU no fim
         
-                       
-
-
-padrão   /regex/
-case-insensitive    /regex/i
-várias ocorrencias  /regex/ig
-wildcard .          /re.ex/
-group chars         /b[aiu]g/;
-range chars         /b[a-n]g/
-
-testar se existe        var_regex.test(var_alvo)
-localizar ocorrencias   var_alvo.match(var_regex)
+             

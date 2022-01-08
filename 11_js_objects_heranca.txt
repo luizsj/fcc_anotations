@@ -1,0 +1,260 @@
+definir objeto
+    let dog = {
+        name: "Enke",
+        numLegs: 4
+    };
+    console.log(dog.name);
+    console.log(dog.numLegs);
+
+    let dog = {
+        name: "Spot",
+        numLegs: 4,
+        sayLegs: function() {
+            return "This has 4 legs"
+        }
+    };
+
+    dog.sayLegs();
+
+----------------------------------
+"this" significa o próprio objeto
+    let dog = {
+        name: "Spot",
+        numLegs: 4,
+        sayLegs: function() {return "This dog has " + this.numLegs + " legs.";}
+    };
+
+    dog.sayLegs();
+
+------------------------------
+construtores
+    funções que constroem e devolvem objetos
+    usam this
+    não tem return
+    chamada com new
+        function Dog() {
+            this.name = 'Enke';
+            this.color = 'yellow';
+            this.numLegs = 4
+        }   
+        let myDog = new Dog();
+
+        function Dog(name, color) {
+            this.name = name;
+            this.color = color;
+            this.numLegs = 4
+        }   
+        let myDog = new Dog('Enke', 'yellow');
+
+varObj instanceof Constructor
+    retorna true se o objeto foi criado com o construtor
+
+varObj.hasOwnProperty('propriedade')
+    function Bird(name) {
+        this.name = name;
+        this.numLegs = 2;
+    }
+
+    let canary = new Bird("Tweety");
+    let ownProps = [];
+
+    for (let property in canary) {
+        if (canary.hasOwnProperty(property)) {
+            ownProps.push(property);
+        }
+    }
+    console.log(ownProps);
+
+varConstrutor.prototype.newProp = value;
+    adiciona a propriedade a todos os objetos já criados ou a criar no futuro
+
+        function Dog(name) {
+            this.name = name;
+        }
+        Dog.prototype.numLegs = 4;
+
+        // Only change code above this line
+        let beagle = new Dog("Snoopy");
+        for (let prop in beagle) {
+            if (beagle.hasOwnProperty(prop)) {
+                ownProps.push(prop);
+            } else {
+                prototypeProps.push(prop);
+            }
+        }
+
+----------
+multiple prototype
+        function Dog(name) {
+            this.name = name;
+        }
+
+        Dog.prototype = {
+        // Only change code below this line
+            constructor: Dog,
+            numLegs: 4,
+            eat: function () {
+                console.log('give me carrots')
+            },
+            describe: function () {
+                console.log("My name is "+this.name);
+            }
+        };
+
+-----------
+Herança
+    cria um construtor de prototype
+        com as características comuns
+        Exemplo: Animal
+    ao criar a classe final
+        seta o prototype para ser o construtor pai
+
+        function Animal() { }
+
+        Animal.prototype = {
+            constructor: Animal,
+            eat: function() {
+                console.log("nom nom nom");
+            }
+        };
+
+        function Dog() { }
+        Dog.prototype = Object.create(Animal.prototype);
+        let beagle = new Dog();                
+
+-------
+    function Animal() { }
+    Animal.prototype.eat = function() { console.log("nom nom nom"); };
+
+    function Dog() { }
+        Dog.prototype = Object.create(Animal.prototype);
+        Dog.prototype.constructor = Dog;
+
+        Dog.prototype.bark = function () {
+        console.log('Woof!')
+    }
+
+    let beagle = new Dog();
+    beagle.eat();
+    beagle.bark();
+
+    ---------------
+Mixin
+    definir uma função genérica que recebe object como parâmetro
+    e que acrescenta uma função ou propriedade deseja para um objeto
+    para quando há propriedades a ser compartilhadas
+        por objetos de ancestrais diferentes
+
+        let flyMixin = function(obj) {
+            obj.fly = function() {
+                console.log("Flying, wooosh!");
+            }
+        };
+
+        let bird = {
+            name: "Donald",
+            numLegs: 2
+        };
+
+        let plane = {
+            model: "777",
+            numPassengers: 524
+        };
+
+        flyMixin(bird);
+        flyMixin(plane);
+        Here bird and plane are passed into flyMixin, which then assigns the fly function to each object. 
+        Now bird and plane can both fly:
+
+        bird.fly();
+        plane.fly();  
+    ---------------------
+        let bird = {
+            name: "Donald",
+            numLegs: 2
+        };
+
+        let boat = {
+            name: "Warrior",
+            type: "race-boat"
+        };
+
+        let glideMixin = function(obj) {
+            obj.glide = function() {
+                return "gliding like a fairy";
+            }
+        }
+        glideMixin(bird);
+        glideMixin(boat);
+
+-----------
+Closure - privilege access
+The simplest way to make this public property private 
+    is by creating a variable within the constructor function.
+    This changes the scope of that variable to be 
+        within the constructor function versus available globally. 
+    This way, the variable can only be accessed and changed by methods 
+        also within the constructor function.
+
+
+        function Bird() {
+            let hatchedEgg = 10;
+
+            this.getHatchedEggCount = function() { 
+                return hatchedEgg;
+            };
+        }
+        let ducky = new Bird();
+        ducky.getHatchedEggCount();
+        o metodo sempre retornará 10,
+            a menos que seja alterado diretamente a variável
+
+------------------
+IIFE - Imediatelly Invoked Function
+        function makeNest() {
+            console.log("A cozy nest is ready");
+        }
+        makeNest();
+    É igual a
+        (function (){
+            console.log("A cozy nest is ready");
+        })();
+    Diferença : executa assim que é declarada e não pode ser chamada depois
+                porque não tem nome
+
+pode ser usado para agrupar a criação de mixins em um módulo
+    ao invés de fazer
+        function glideMixin(obj) {
+            obj.glide = function() {
+                console.log("Gliding on the water");
+            };
+        }
+        function flyMixin(obj) {
+            obj.fly = function() {
+                console.log("Flying, wooosh!");
+            };
+        } 
+    pode fazer
+        let motionModule = (function () {
+            return {
+                glideMixin: function(obj) {
+                    obj.glide = function() {
+                        console.log("Gliding on the water");
+                    };
+                },
+                flyMixin: function(obj) {
+                    obj.fly = function() {
+                        console.log("Flying, wooosh!");
+                    };
+                }
+            }
+        })();  
+
+        motionModule.glideMixin(duck);
+        duck.glide();  
+
+
+
+
+
+
